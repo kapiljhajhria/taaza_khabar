@@ -51,6 +51,9 @@ void main() async {
   FullMap justTestMap = FullMap(everything);
   print(justTestMap.status);
   print(justTestMap.results);
+//  print(justTestMap.articlesList[0]);
+  List<dynamic> allArticlesList = justTestMap.articlesList;
+  print(allArticlesList[0]);
 //  var SearchLink = NewsJsonUrl().searchForNews(searchTerm: 'your trump');
 //  print(SearchLink);
 }

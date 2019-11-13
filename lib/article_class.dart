@@ -1,13 +1,19 @@
 class Article {
-  String sourceName;
   String title;
   String imageUrl;
   String description;
   String content;
   String publishedAt;
   String author;
-  Article(this.sourceName, this.imageUrl, this.title, this.author, this.content,
-      this.description, this.publishedAt);
+
+  Article({Map<String, dynamic> map}) {
+    this.imageUrl = map['urlToImage'];
+    this.title = map['title'];
+    this.author = map['source']['name'];
+    this.content = map['content'];
+    this.description = map['description'];
+    this.publishedAt = map['publishedAt'];
+  }
 
 }
 
