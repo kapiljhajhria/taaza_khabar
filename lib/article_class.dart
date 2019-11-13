@@ -6,17 +6,19 @@ class Article {
   String content;
   String publishedAt;
   String author;
-  List<Map<String, dynamic>> getArticles(
-      {Map<String, dynamic> mapFromJsonUrl}) {
-    return mapFromJsonUrl['articles'];
-  }
+  Article(this.sourceName, this.imageUrl, this.title, this.author, this.content,
+      this.description, this.publishedAt);
 
-  Article.fromJsonMap(Map<String, dynamic> map) {
-    author = map['source']['name'];
-    title = map['title'];
-    description = map['description'];
-    imageUrl = map['urlToImage'];
-    publishedAt = map['publishedAt'];
-    content = map['content'];
+}
+
+class FullMap {
+  int results;
+  String status;
+  List<dynamic> articlesList;
+
+  FullMap(Map<String, dynamic> completeMap) {
+    this.results = completeMap['totalResults'];
+    this.status = completeMap['status'];
+    this.articlesList = completeMap['articles'];
   }
 }
