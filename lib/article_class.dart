@@ -6,25 +6,38 @@ class Article {
   String publishedAt;
   String author;
 
-  Article({Map<String, dynamic> map}) {
-    this.imageUrl = map['urlToImage'];
-    this.title = map['title'];
-    this.author = map['source']['name'];
-    this.content = map['content'];
-    this.description = map['description'];
-    this.publishedAt = map['publishedAt'];
-  }
-
+  Article(
+      {this.publishedAt,
+      this.description,
+      this.content,
+      this.author,
+      this.title,
+      this.imageUrl});
 }
 
 class FullMap {
   int results;
   String status;
-  List<dynamic> articlesList;
+  List<dynamic> articlesListOfMap;
 
-  FullMap(Map<String, dynamic> completeMap) {
-    this.results = completeMap['totalResults'];
-    this.status = completeMap['status'];
-    this.articlesList = completeMap['articles'];
+  FullMap(Map<String, dynamic> mapReturnedFromJson) {
+    this.results = mapReturnedFromJson['totalResults'];
+    this.status = mapReturnedFromJson['status'];
+    this.articlesListOfMap = mapReturnedFromJson['articles'];
+  }
+}
+
+class ArticlesList {
+  List<Article> allArticles = [];
+  ArticlesList(List<dynamic> articleData) {
+    articleData.forEach((map) {
+      allArticles.add(Article(
+          author: map['source']['name'],
+          content: map['content'],
+          description: map['description'],
+          imageUrl: map['urlToImage'],
+          publishedAt: map['publishedAt'],
+          title: map['title']));
+    });
   }
 }
