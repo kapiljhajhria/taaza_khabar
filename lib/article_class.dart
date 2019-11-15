@@ -5,14 +5,37 @@ class Article {
   String content;
   String publishedAt;
   String author;
+  String hoursAgo;
 
-  Article(
-      {this.publishedAt,
-      this.description,
-      this.content,
-      this.author,
-      this.title,
-      this.imageUrl});
+  Article({
+    String title,
+    String imageUrl,
+    String description,
+    String content,
+    String publishedAt,
+    String author,
+    String hoursAgo,
+  }) {
+    this.title = trimTitle(title);
+    this.imageUrl = imageUrl;
+    this.description = description;
+    this.content = removeAuthorFromContent(content);
+    this.publishedAt = publishedAt;
+    this.author = author;
+    this.hoursAgo =
+        '${DateTime.now().difference(DateTime.parse(publishedAt)).inHours} hours ago';
+  }
+}
+
+String removeAuthorFromContent(String content) {
+  List temp = content.split('[');
+
+  return temp[0];
+}
+
+String trimTitle(String title) {
+  List temp = title.split('-');
+  return temp[0];
 }
 
 class FullMap {
@@ -33,9 +56,9 @@ class ArticlesList {
     articleData.forEach((map) {
       allArticles.add(Article(
           author: map['source']['name'],
-          content: map['content'],
-          description: map['description'],
-          imageUrl: map['urlToImage'],
+          content: map['content'] == null ? '' : map['content'],
+          description: map['description'] == null ? '' : map['description'],
+          imageUrl: map['urlToImage'] == null ? '' : map['urlToImage'],
           publishedAt: map['publishedAt'],
           title: map['title']));
     });
