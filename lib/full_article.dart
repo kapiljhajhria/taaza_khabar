@@ -18,9 +18,12 @@ class _DetailedArticleState extends State<DetailedArticle> {
         children: <Widget>[
           Expanded(
             flex: 1,
-            child: Image.network(
-              widget.article.imageUrl,
-              fit: BoxFit.fill,
+            child: Hero(
+              tag: widget.article.title,
+              child: Image.network(
+                widget.article.imageUrl,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           Expanded(
@@ -28,8 +31,14 @@ class _DetailedArticleState extends State<DetailedArticle> {
             child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                  Text(widget.article.title),
-                  Text(widget.article.content)
+                  Text(
+                    widget.article.title,
+                    style: Theme.of(context).textTheme.title,
+                  ),
+                  Text(
+                    widget.article.content,
+                    style: Theme.of(context).textTheme.body1,
+                  )
                 ],
               ),
             ),

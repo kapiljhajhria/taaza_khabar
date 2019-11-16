@@ -94,6 +94,7 @@ class _ListBuilderBasedOnUrlState extends State<ListBuilderBasedOnUrl>
                               allArticlesList[index].title,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 2,
+                              style: Theme.of(context).textTheme.headline,
                               strutStyle: StrutStyle(height: 1),
                             ),
                           ),
@@ -112,6 +113,8 @@ class _ListBuilderBasedOnUrlState extends State<ListBuilderBasedOnUrl>
                                         allArticlesList[index].description,
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 5,
+                                        style:
+                                            Theme.of(context).textTheme.subhead,
                                         strutStyle: StrutStyle(height: 1),
                                       )),
                                 ),
