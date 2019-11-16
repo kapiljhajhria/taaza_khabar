@@ -1,10 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'article_class.dart';
-import 'homePage_newsList.dart';
+import 'homePage_newsListWidget.dart';
 import 'netwrok_helper.dart';
-import 'package:http/http.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -14,60 +10,16 @@ class HomePage extends StatefulWidget {
 NewsJsonUrl newsJsonUrl = NewsJsonUrl();
 
 class _HomePageState extends State<HomePage> {
-  bool fetchedNews = false;
-  List<Article> allArticlesList = [];
-  List<Article> allArticlesList2 = [];
-
   @override
   void initState() {
-    fetchedNews = false;
-    getArticlesList(
-        newsJsonUrl.topHeadlinesOfCountry(countryCode: 'in'), allArticlesList2);
-
     // TODO: implement initState
     super.initState();
   }
 
-//url that we need to get json Data from
-  getArticlesList(String url, List<Article> allArticlesList) async {
-    Response response = await get(url);
-    //get raw json data,  from URL
-    Map<String, dynamic> jsonData = jsonDecode(response.body);
-    //convert jsonData to Map, this is still not the actual map tha we will be
-    //using to crea list of Article Object, we need just one value from
-    //this map which is List of Maps and it will be converted into
-    //List of Article Objects
-    FullMap fullMapFromJsonData = FullMap(jsonData);
-    //now that we have full map, we ned to get list of maps that will be
-    //coverted into list of objects of class Article
-    List<dynamic> articlesMapList = fullMapFromJsonData.articlesListOfMap;
-    //above we have list of maps, lets convert it into List of objects of class Article
-    allArticlesList = ArticlesList(articlesMapList).allArticles;
-    allArticlesList2 = ArticlesList(articlesMapList).allArticles;
-
-    print('test');
-    print(allArticlesList[0].title);
-    fetchedNews = true;
-    setState(() {});
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: RefreshIndicator(
-        onRefresh: () async {
-          fetchedNews = false;
-          getArticlesList(newsJsonUrl.topHeadlinesOfCountry(countryCode: 'in'),
-              allArticlesList2);
-        },
-        child: fetchedNews
-            ? RandomWidget(allArticlesList: allArticlesList2)
-            : Center(
-                child: CircularProgressIndicator(
-                strokeWidth: 3.0,
-                backgroundColor: Colors.red,
-              )),
-      ),
+    return ListBuilderBasedOnUrl(
+      url: newsJsonUrl.topHeadlinesOfCountry(countryCode: 'in'),
     );
   }
 }
