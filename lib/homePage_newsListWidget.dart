@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:taaza_khabar/article_class.dart';
 import 'article_class.dart';
+import 'full_article.dart';
 
 class ListBuilderBasedOnUrl extends StatefulWidget {
   final String url;
@@ -17,6 +18,10 @@ class _ListBuilderBasedOnUrlState extends State<ListBuilderBasedOnUrl>
     with AutomaticKeepAliveClientMixin<ListBuilderBasedOnUrl> {
   bool fetchedNews = true;
   List<Article> allArticlesList;
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -69,11 +74,12 @@ class _ListBuilderBasedOnUrlState extends State<ListBuilderBasedOnUrl>
                     },
                     dense: true,
                     onTap: () {
-                      Locale myLocale = Localizations.localeOf(context);
-                      print(myLocale.countryCode);
-                      print(myLocale.languageCode);
-                      print(DateTime.now());
-                      print('tapped');
+                      Navigator.push(
+                          (context),
+                          MaterialPageRoute(
+                              builder: (context) => DetailedArticle(
+                                    article: allArticlesList[index],
+                                  )));
                     },
                     contentPadding: EdgeInsets.fromLTRB(16, 0, 16, 0),
                     title: Container(
@@ -150,8 +156,4 @@ class _ListBuilderBasedOnUrlState extends State<ListBuilderBasedOnUrl>
             )),
     );
   }
-
-  @override
-  // TODO: implement wantKeepAlive
-  bool get wantKeepAlive => true;
 }
