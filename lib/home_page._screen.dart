@@ -18,17 +18,67 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return ListBuilderBasedOnUrl(
-      url: newsJsonUrl.topHeadlinesOfCountry(countryCode: 'in'),
+    return DefaultTabController(
+      length: 5,
+      initialIndex: 0,
+      child: Scaffold(
+          appBar: AppBar(
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(Icons.search),
+                onPressed: () async {
+                  dynamic newLocation = await showSearch(
+                    context: context,
+                    delegate: LocationsSearch(),
+                  );
+                  print('newLocation is $newLocation');
+                  if (newLocation != null) {
+                    setState(() {});
+                  }
+                },
+              )
+            ],
+            title: Text('News App'),
+            centerTitle: true,
+            bottom: TabBar(
+              isScrollable: true,
+              tabs: <Widget>[
+                Text('India'),
+                Text('Australia'),
+                Text('USA'),
+                Text('New Zeland'),
+                Text('Indonesia'),
+              ],
+            ),
+          ),
+          body: TabBarView(
+            children: <Widget>[
+              ListBuilderBasedOnUrl(
+                url: newsJsonUrl.topHeadlinesOfCountry(countryCode: 'in'),
+              ),
+              ListBuilderBasedOnUrl(
+                url: newsJsonUrl.topHeadlinesOfCountry(countryCode: 'au'),
+              ),
+              ListBuilderBasedOnUrl(
+                url: newsJsonUrl.topHeadlinesOfCountry(countryCode: 'us'),
+              ),
+              ListBuilderBasedOnUrl(
+                url: newsJsonUrl.topHeadlinesOfCountry(countryCode: 'nz'),
+              ),
+              ListBuilderBasedOnUrl(
+                url: newsJsonUrl.topHeadlinesOfCountry(countryCode: 'id'),
+              ),
+            ],
+          )),
     );
   }
 }
 
 class LocationsSearch extends SearchDelegate<String> {
   List results = ['donald trump', 'football', 'Ram Mandir'];
-  final List<dynamic> cities;
-
-  LocationsSearch(this.cities);
+//  final List<dynamic> cities;
+//
+//  LocationsSearch(this.cities);
 
   @override
   ThemeData appBarTheme(BuildContext context) {
@@ -56,6 +106,7 @@ class LocationsSearch extends SearchDelegate<String> {
         icon: Icon(Icons.clear_all),
         onPressed: () {
           results.clear();
+          print('clear results');
         },
       )
     ];
@@ -76,8 +127,11 @@ class LocationsSearch extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
+    results.add(query);
     // TODO: implement buildResults
-    return Container();
+    return ListBuilderBasedOnUrl(
+      url: newsJsonUrl.searchForNews(searchTerm: query),
+    );
   }
 
   @override
@@ -91,7 +145,9 @@ class LocationsSearch extends SearchDelegate<String> {
         return ListTile(
           leading: Icon(Icons.history),
           onTap: () {
-            close(context, results[index]);
+            print('tapped ${results[index]}');
+//            close(context, results[index]);
+            query = results[index];
           },
           dense: true,
           title: Text(results[index]),

@@ -13,7 +13,8 @@ class ListBuilderBasedOnUrl extends StatefulWidget {
   _ListBuilderBasedOnUrlState createState() => _ListBuilderBasedOnUrlState();
 }
 
-class _ListBuilderBasedOnUrlState extends State<ListBuilderBasedOnUrl> {
+class _ListBuilderBasedOnUrlState extends State<ListBuilderBasedOnUrl>
+    with AutomaticKeepAliveClientMixin<ListBuilderBasedOnUrl> {
   bool fetchedNews = true;
   List<Article> allArticlesList;
 
@@ -48,95 +49,101 @@ class _ListBuilderBasedOnUrlState extends State<ListBuilderBasedOnUrl> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: RefreshIndicator(
-        onRefresh: () async {
-          fetchedNews = false;
-          getArticlesList();
-        },
-        child: fetchedNews
-            ? ListView.builder(
-                padding: EdgeInsets.only(top: 10),
-                itemCount: allArticlesList.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    dense: true,
-                    onTap: () {
-                      print('tapped');
-                    },
-                    contentPadding: EdgeInsets.fromLTRB(16, 0, 16, 0),
-                    title: Container(
+    return RefreshIndicator(
+      onRefresh: () async {
+        fetchedNews = false;
+        getArticlesList();
+      },
+      child: fetchedNews
+          ? ListView.builder(
+              padding: EdgeInsets.only(top: 10),
+              itemCount: allArticlesList.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  dense: true,
+                  onTap: () {
+                    Locale myLocale = Localizations.localeOf(context);
+                    print(myLocale.countryCode);
+                    print(myLocale.languageCode);
+                    print(DateTime.now());
+                    print('tapped');
+                  },
+                  contentPadding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+                  title: Container(
 //              height: 200,
-                      width: double.infinity,
-                      child: Column(
-                        children: <Widget>[
-                          //title
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
-                            child: Text(
-                              allArticlesList[index].title,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 2,
-                              strutStyle: StrutStyle(height: 1),
-                            ),
+                    width: double.infinity,
+                    child: Column(
+                      children: <Widget>[
+                        //title
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Text(
+                            allArticlesList[index].title,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                            strutStyle: StrutStyle(height: 1),
                           ),
+                        ),
 //                  description and image
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.max,
-                              children: <Widget>[
-                                Expanded(
-                                  flex: 3,
-                                  child: Container(
-                                      margin: EdgeInsets.all(2.0),
-                                      child: Text(
-                                        allArticlesList[index].description,
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 5,
-                                        strutStyle: StrutStyle(height: 1),
-                                      )),
-                                ),
-                                Expanded(
-                                  flex: 2,
-                                  child: Container(
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              Expanded(
+                                flex: 3,
+                                child: Container(
                                     margin: EdgeInsets.all(2.0),
-                                    child: Hero(
-                                      createRectTween: (Rect r1, Rect r2) =>
-                                          RectTween(begin: r1, end: r2),
-                                      tag: allArticlesList[index].title,
-                                      child: allArticlesList[index]
-                                              .imageUrl
-                                              .isNotEmpty
-                                          ? Image.network(
-                                              allArticlesList[index].imageUrl,
-                                              fit: BoxFit.fill,
-                                            )
-                                          : Text('No Image'),
-                                    ),
+                                    child: Text(
+                                      allArticlesList[index].description,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 5,
+                                      strutStyle: StrutStyle(height: 1),
+                                    )),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Container(
+                                  margin: EdgeInsets.all(2.0),
+                                  child: Hero(
+                                    createRectTween: (Rect r1, Rect r2) =>
+                                        RectTween(begin: r1, end: r2),
+                                    tag: allArticlesList[index].title,
+                                    child: allArticlesList[index]
+                                            .imageUrl
+                                            .isNotEmpty
+                                        ? Image.network(
+                                            allArticlesList[index].imageUrl,
+                                            fit: BoxFit.fill,
+                                          )
+                                        : Text('No Image'),
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
+                        ),
 //                  source , time,  bookmark and share icon
-                          Container(
-                            margin: EdgeInsets.only(top: 8),
-                            color: Colors.black12,
-                            height: 2.0,
-                          ),
-                        ],
-                      ),
+                        Container(
+                          margin: EdgeInsets.only(top: 8),
+                          color: Colors.black12,
+                          height: 2.0,
+                        ),
+                      ],
                     ),
-                  );
-                })
-            : Center(
-                child: CircularProgressIndicator(
-                strokeWidth: 3.0,
-                backgroundColor: Colors.red,
-              )),
-      ),
+                  ),
+                );
+              })
+          : Center(
+              child: CircularProgressIndicator(
+              strokeWidth: 3.0,
+              backgroundColor: Colors.red,
+            )),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }
