@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'homePage_newsListWidget.dart';
 import 'netwrok_helper.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -8,19 +9,31 @@ class HomePage extends StatefulWidget {
 }
 
 NewsJsonUrl newsJsonUrl = NewsJsonUrl();
+int tabIndexOnLaunchOfApp;
 
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
+    getValuesSF();
+    setState(() {});
     // TODO: implement initState
     super.initState();
   }
 
+  getValuesSF() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    tabIndexOnLaunchOfApp = prefs.getInt('tabIndexOnLaunchOfApp');
+    print('value from sp is');
+    print(tabIndexOnLaunchOfApp);
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
+//    tabIndexOnLaunchOfApp == null ? tabIndexOnLaunchOfApp = 0 : null;
     return DefaultTabController(
       length: 5,
-      initialIndex: 0,
+      initialIndex: tabIndexOnLaunchOfApp,
       child: Scaffold(
           appBar: AppBar(
             actions: <Widget>[
@@ -41,6 +54,10 @@ class _HomePageState extends State<HomePage> {
             title: Text('News App'),
             centerTitle: true,
             bottom: TabBar(
+              onTap: (x) async {
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                prefs.setInt('tabIndexOnLaunchOfApp', x);
+              },
               isScrollable: true,
               tabs: <Widget>[
                 Text('India'),
