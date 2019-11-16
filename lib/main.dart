@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'home_page.dart';
 import 'full_article.dart';
-import 'article_image.dart';
 
 void main() => runApp(NewsApp());
 
@@ -20,7 +19,6 @@ class _NewsAppState extends State<NewsApp> {
         'detailed_article': (context) => DetailedArticle(),
 //        'image': (context) => RegisterScreen(),
       },
-      home: HomePage(),
     );
   }
 }

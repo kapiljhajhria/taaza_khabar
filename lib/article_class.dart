@@ -6,6 +6,7 @@ class Article {
   String publishedAt;
   String author;
   String hoursAgo;
+  String humanReadableTime;
 
   Article({
     String title,
@@ -14,7 +15,6 @@ class Article {
     String content,
     String publishedAt,
     String author,
-    String hoursAgo,
   }) {
     this.title = trimTitle(title);
     this.imageUrl = imageUrl;
@@ -52,6 +52,7 @@ class FullMap {
 
 class ArticlesList {
   List<Article> allArticles = [];
+
   ArticlesList(List<dynamic> articleData) {
     articleData.forEach((map) {
       allArticles.add(Article(
