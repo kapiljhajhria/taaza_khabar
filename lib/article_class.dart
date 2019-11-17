@@ -7,6 +7,7 @@ class Article {
   String author;
   String hoursAgo;
   String humanReadableTime;
+  String fullNewsUrl;
 
   Article({
     String title,
@@ -15,6 +16,7 @@ class Article {
     String content,
     String publishedAt,
     String author,
+    String fullNewsUrl
   }) {
     this.title = trimTitle(title);
     this.imageUrl = imageUrl;
@@ -24,6 +26,7 @@ class Article {
     this.author = author;
     this.hoursAgo =
         '${DateTime.now().difference(DateTime.parse(publishedAt)).inHours} hours ago';
+    this.fullNewsUrl = fullNewsUrl;
   }
 }
 
@@ -56,6 +59,7 @@ class ArticlesList {
   ArticlesList(List<dynamic> articleData) {
     articleData.forEach((map) {
       allArticles.add(Article(
+        fullNewsUrl: map['url'],
           author: map['source']['name'],
           content: map['content'] == null ? '' : map['content'],
           description: map['description'] == null ? '' : map['description'],

@@ -23,6 +23,7 @@ class _HomePageState extends State<HomePage> {
   getValuesSF() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     tabIndexOnLaunchOfApp = prefs.getInt('tabIndexOnLaunchOfApp');
+    tabIndexOnLaunchOfApp == null ? tabIndexOnLaunchOfApp = 0 : null;
     print('value from sp is');
     print(tabIndexOnLaunchOfApp);
     setState(() {});

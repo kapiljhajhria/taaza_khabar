@@ -86,6 +86,7 @@ class _ListBuilderBasedOnUrlState extends State<ListBuilderBasedOnUrl>
 //              height: 200,
                       width: double.infinity,
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
                           //title
                           Padding(

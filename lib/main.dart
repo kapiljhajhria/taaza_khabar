@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'home_page._screen.dart';
 import 'full_article.dart';
@@ -15,17 +16,24 @@ class _NewsAppState extends State<NewsApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        primaryColorBrightness: Brightness.dark,
+        tabBarTheme: TabBarTheme(
+            indicatorSize: TabBarIndicatorSize.tab,
+            unselectedLabelStyle: TextStyle(fontSize: 19),
+            labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            labelPadding: EdgeInsets.fromLTRB(10, 0, 10, 10)),
         brightness: Brightness.dark,
         textTheme: TextTheme(
           ///headline = main list headline
-          headline: TextStyle(
-            fontSize: 21.0,
+          headline: TextStyle(fontWeight: FontWeight.bold,
+            fontSize: 20,
+            fontFamily: 'linlibertine_r'
           ),
 
           ///subHead = main list description below headline
           subhead: TextStyle(
-            fontSize: 15.0,
-          ),
+              fontFamily: 'linlibertine_dr'),
+
 
           ///title =  detailed page  headline
           title: TextStyle(
@@ -39,6 +47,7 @@ class _NewsAppState extends State<NewsApp> {
           ///body1 = detailed widget/page content
           body1: TextStyle(fontSize: 14.0),
         ),
+
       ),
       routes: {
         '/': (context) => HomePage(),
