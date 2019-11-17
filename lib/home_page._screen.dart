@@ -59,10 +59,11 @@ class _HomePageState extends State<HomePage> {
 
                       value: usingDarkTheme,
                       onChanged: (toggleValue) {
-                        usingDarkTheme = toggleValue;
+
                         print('toggle value: $toggleValue usingDarkTheme : $usingDarkTheme');
 //                      usingDarkTheme = !usingDarkTheme;
                         setState(() {
+                          usingDarkTheme = toggleValue;
 
                         });
                       },

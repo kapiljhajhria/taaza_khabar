@@ -171,7 +171,7 @@ class _ListBuilderBasedOnUrlState extends State<ListBuilderBasedOnUrl>
                                   color: Colors.blueGrey,
                                   onPressed: () {
                                     Share.share(
-                                        '${allArticlesList[index].title}\n ${allArticlesList[index].fullNewsUrl} ');
+                                        '${allArticlesList[index].title}\n ${allArticlesList[index].fullNewsUrl} +');
                                   },
                                 ),
                               ),
