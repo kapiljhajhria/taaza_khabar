@@ -4,6 +4,7 @@ import 'netwrok_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -12,6 +13,8 @@ NewsJsonUrl newsJsonUrl = NewsJsonUrl();
 int tabIndexOnLaunchOfApp;
 
 class _HomePageState extends State<HomePage> {
+  List<bool> toggleButtons = [true, false, false];
+
   @override
   void initState() {
     getValuesSF();
@@ -36,7 +39,39 @@ class _HomePageState extends State<HomePage> {
       length: 5,
       initialIndex: tabIndexOnLaunchOfApp,
       child: Scaffold(
+        drawer: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+//          crossAxisAlignment: CrossAxisAlignment.start,
+//          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Image.asset('assets/defaultimage.png'),
+            ToggleButtons(
+              highlightColor: Colors.orange,
+              onPressed: (int x) {
+                for (int index = 0; index < toggleButtons.length; index++) {
+                  if (index != x)
+                    toggleButtons[index] = false;
+                  else
+                    toggleButtons[index] = true;
+                }
+                setState(() {});
+              },
+              isSelected: toggleButtons,
+              children: <Widget>[
+                Icon(Icons.wb_sunny),
+                Icon(Icons.wb_cloudy),
+                Icon(Icons.person_outline),
+              ],
+            ),
+            Text('Settings',style: TextStyle(fontSize: 22),),
+            Text('Credits',style: TextStyle(fontSize: 22),)
+          ],
+        ),
           appBar: AppBar(
+            leading: IconButton(
+              icon: Icon(Icons.menu),
+            ),
+            backgroundColor: Theme.of(context).copyWith().primaryColor,
             actions: <Widget>[
               IconButton(
                 icon: Icon(Icons.search),

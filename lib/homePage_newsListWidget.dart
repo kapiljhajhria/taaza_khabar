@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:share/share.dart';
@@ -83,6 +84,7 @@ class _ListBuilderBasedOnUrlState extends State<ListBuilderBasedOnUrl>
 //              height: 200,
                     width: double.infinity,
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
                         //title
                         Padding(
@@ -92,6 +94,7 @@ class _ListBuilderBasedOnUrlState extends State<ListBuilderBasedOnUrl>
                             style: Theme.of(context).textTheme.headline,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 2,
+                            textAlign: TextAlign.justify,
                             strutStyle: StrutStyle(height: 1),
                           ),
                         ),
