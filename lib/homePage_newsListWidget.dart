@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:share/share.dart';
 import 'package:taaza_khabar/article_class.dart';
 import 'article_class.dart';
 import 'full_article.dart';
@@ -66,89 +67,120 @@ class _ListBuilderBasedOnUrlState extends State<ListBuilderBasedOnUrl>
               padding: EdgeInsets.only(top: 10),
               itemCount: allArticlesList.length,
               itemBuilder: (context, index) {
-                return Card(
-                  elevation: 5,
-                  child: ListTile(
-                    onLongPress: () {
-                      print('long press');
-                    },
-                    dense: true,
-                    onTap: () {
-                      Navigator.push(
-                          (context),
-                          MaterialPageRoute(
-                              builder: (context) => DetailedArticle(
-                                    article: allArticlesList[index],
-                                  )));
-                    },
-                    contentPadding: EdgeInsets.fromLTRB(16, 0, 16, 0),
-                    title: Container(
+                return ListTile(
+                  dense: true,
+                  onTap: () {
+                    print('tapped');
+                    Navigator.push(
+                        (context),
+                        MaterialPageRoute(
+                            builder: (context) => DetailedArticle(
+                                  article: allArticlesList[index],
+                                )));
+                  },
+                  contentPadding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+                  title: Container(
 //              height: 200,
-                      width: double.infinity,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          //title
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
-                            child: Text(
-                              allArticlesList[index].title,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 2,
-                              style: Theme.of(context).textTheme.headline,
-                              strutStyle: StrutStyle(height: 1),
-                            ),
+                    width: double.infinity,
+                    child: Column(
+                      children: <Widget>[
+                        //title
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Text(
+                            allArticlesList[index].title,
+                            style: Theme.of(context).textTheme.headline,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                            strutStyle: StrutStyle(height: 1),
                           ),
+                        ),
 //                  description and image
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.max,
-                              children: <Widget>[
-                                Expanded(
-                                  flex: 3,
-                                  child: Container(
-                                      margin: EdgeInsets.all(2.0),
-                                      child: Text(
-                                        allArticlesList[index].description,
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 5,
-                                        style:
-                                            Theme.of(context).textTheme.subhead,
-                                        strutStyle: StrutStyle(height: 1),
-                                      )),
-                                ),
-                                Expanded(
-                                  flex: 2,
-                                  child: Container(
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              Expanded(
+                                flex: 3,
+                                child: Container(
                                     margin: EdgeInsets.all(2.0),
-                                    child: Hero(
-                                      createRectTween: (Rect r1, Rect r2) =>
-                                          RectTween(begin: r1, end: r2),
-                                      tag: allArticlesList[index].title,
-                                      child: allArticlesList[index]
-                                              .imageUrl
-                                              .isNotEmpty
-                                          ? Image.network(
-                                              allArticlesList[index].imageUrl,
-                                              fit: BoxFit.fill,
-                                            )
-                                          : Text('No Image'),
-                                    ),
+                                    child: Text(
+                                      allArticlesList[index].description,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 5,
+                                      style:
+                                      Theme.of(context).textTheme.subhead,
+                                      strutStyle: StrutStyle(height: 1),
+                                    )),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Container(
+                                  margin: EdgeInsets.all(2.0),
+                                  child: Hero(
+                                    createRectTween: (Rect r1, Rect r2) =>
+                                        RectTween(begin: r1, end: r2),
+                                    tag: allArticlesList[index].title,
+                                    child: allArticlesList[index].imageUrl.isNotEmpty
+                                        ? Image.network(
+                                      allArticlesList[index].imageUrl,
+                                            fit: BoxFit.fill,
+                                          )
+                                        : Image.asset(
+                                            'assets/defaultimage.png'),
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
+                        ),
 //                  source , time,  bookmark and share icon
-                          Container(
-                            margin: EdgeInsets.only(top: 8),
-                            color: Colors.black12,
-                            height: 2.0,
-                          ),
-                        ],
-                      ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Expanded(
+                              flex: 4,
+                              child: Container(
+                                alignment: Alignment.topLeft,
+                                child: Row(
+                                  children: <Widget>[
+                                    Text(
+                                        allArticlesList[index].author,
+                                        style: TextStyle(color: Colors.grey)),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 5),
+                                      child: Text(
+                                          allArticlesList[index].hoursAgo,
+                                          style: TextStyle(color: Colors.grey)),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Container(
+                                margin: EdgeInsets.all(2.0),
+                                child: IconButton(
+                                  icon: Icon(Icons.share),
+                                  color: Colors.blueGrey,
+                                  onPressed: () {
+                                    Share.share(
+                                        '${allArticlesList[index].description}\n ${allArticlesList[index].fullNewsUrl} ');
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(top: 8),
+                          color: Colors.black12,
+                          height: 2.0,
+                        ),
+                      ],
                     ),
                   ),
                 );
