@@ -10,7 +10,7 @@ class NewsApp extends StatefulWidget {
   _NewsAppState createState() => _NewsAppState();
 }
 
-
+bool usingDarkTheme = true;
 
 
 
@@ -21,7 +21,7 @@ class _NewsAppState extends State<NewsApp> {
 
   @override
   Widget build(BuildContext context) {
-
+    ///light theme
     ThemeData lightTheme = ThemeData(
       //primary color is being used as app bar color, so set it accordingly
       primaryColor: Colors.white,
@@ -108,7 +108,7 @@ class _NewsAppState extends State<NewsApp> {
     List<ThemeData> appThemes =[lightTheme,darkTheme];
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: appThemes[1],
+      theme: usingDarkTheme?appThemes[1]:appThemes[0],
       routes: {
         '/': (context) => HomePage(),
         'detailed_article': (context) => DetailedArticle(),
