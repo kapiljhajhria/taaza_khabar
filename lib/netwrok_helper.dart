@@ -36,11 +36,14 @@ class NewsJsonUrl {
 }
 
 void main() async {
-  Map<String, dynamic> everything = await NewsJsonUrl()
-      .getMapFromJson(NewsJsonUrl().topHeadlinesOfCountry(countryCode: 'in'));
-  FullMap justTestMap = FullMap(everything);
-  print(justTestMap.status);
-  print(justTestMap.results);
-  ArticlesList allNewsArticles = ArticlesList(justTestMap.articlesListOfMap);
-  print(allNewsArticles.allArticles[0].publishedAt);
+  Map<String, dynamic> jsonData = await NewsJsonUrl()
+      .getMapFromJson(NewsJsonUrl().searchForNews(searchTerm: 'donald trump'));
+  FullMap fullMapFromJsonData = FullMap(jsonData);
+  print(fullMapFromJsonData.status);
+  print(fullMapFromJsonData.results);
+  ArticlesList newsMap = ArticlesList(fullMapFromJsonData.articlesListOfMap);
+  print(newsMap.allArticles[2].title);
+  print(newsMap.allArticles[2].author);
+  print(newsMap.allArticles.length);
+  print(newsMap.allArticles[2].humanReadableTime);
 }

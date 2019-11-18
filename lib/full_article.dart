@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'article_class.dart';
-
 class DetailedArticle extends StatefulWidget {
   final Article article;
 

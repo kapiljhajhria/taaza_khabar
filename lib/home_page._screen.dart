@@ -77,9 +77,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
           appBar: AppBar(
-            leading: IconButton(
-              icon: Icon(Icons.menu),
-            ),
+            
             backgroundColor: Theme.of(context).copyWith().primaryColor,
             actions: <Widget>[
               IconButton(
