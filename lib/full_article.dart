@@ -39,17 +39,17 @@ class _DetailedArticleState extends State<DetailedArticle> {
                         SizedBox(height: 10),
                         Row(
                           children: <Widget>[
-                            Icon(Icons.new_releases),
+                            Icon(Icons.chrome_reader_mode),
                             SizedBox(width: 5),
                             Text(widget.article.author),
                             SizedBox(width: 10),
                             Icon(Icons.calendar_today),
                             SizedBox(width: 5),
-                            Text('19-Nov-2019'),
+                            Text(widget.article.date),
                             SizedBox(width: 10),
                             Icon(Icons.access_time),
                             SizedBox(width: 5),
-                            Text(widget.article.hoursAgo),
+                            Text(widget.article.time),
                           ],
                         ),
                         SizedBox(height: 10),
@@ -72,7 +72,7 @@ class _DetailedArticleState extends State<DetailedArticle> {
                     children: <Widget>[
                       Text(
                         'Read Full Article',
-                        style: Theme.of(context).textTheme.body1,
+                        style: TextStyle(color: Colors.blue),
                       ),
                       SizedBox(width: 5,),
                       Icon(Icons.open_in_new)

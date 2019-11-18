@@ -8,6 +8,8 @@ class Article {
   String hoursAgo;
   String humanReadableTime;
   String fullNewsUrl;
+  String date;
+  String time;
 
   Article({
     String title,
@@ -16,8 +18,11 @@ class Article {
     String content,
     String publishedAt,
     String author,
-    String fullNewsUrl
+    String fullNewsUrl,
+    String date,
+    String time,
   }) {
+    
     this.title = trimTitle(title);
     this.imageUrl = imageUrl;
     this.description = description;
@@ -27,6 +32,8 @@ class Article {
     this.hoursAgo =
         '${DateTime.now().difference(DateTime.parse(publishedAt)).inHours} hours ago';
     this.fullNewsUrl = fullNewsUrl;
+    this.date = '${DateTime.parse(publishedAt).toLocal().day}-${DateTime.parse(publishedAt).toLocal().month}-${DateTime.parse(publishedAt).toLocal().year}';
+    this.time = '${DateTime.parse(publishedAt).toLocal().hour}:${DateTime.parse(publishedAt).toLocal().minute} Hrs';
   }
 }
 
