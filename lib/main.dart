@@ -16,7 +16,11 @@ bool usingDarkTheme = true;
 
 class _NewsAppState extends State<NewsApp> {
   ///light theme
-
+     handleSettingsChange() {
+       setState(() {
+         
+       });
+  }
 
 
   @override
@@ -110,10 +114,12 @@ class _NewsAppState extends State<NewsApp> {
       debugShowCheckedModeBanner: false,
       theme: usingDarkTheme?appThemes[1]:appThemes[0],
       routes: {
-        '/': (context) => HomePage(),
-        'detailed_article': (context) => DetailedArticle(),
-//        'image': (context) => RegisterScreen(),
-      },
-    );
-  }
+        '/': (context) => HomePage(settingsCallback: handleSettingsChange,),
+                'detailed_article': (context) => DetailedArticle(),
+        //        'image': (context) => RegisterScreen(),
+              },
+            );
+          }
+        
+    
 }
