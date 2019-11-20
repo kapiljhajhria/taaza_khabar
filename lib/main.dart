@@ -5,24 +5,45 @@ import 'full_article.dart';
 
 void main() => runApp(NewsApp());
 
+
+class Settings {
+  bool isDark = true;
+  List<Function> _oberservers = [];
+  void setIsDark(bool newVal) {
+    isDark = newVal;
+    _oberservers.forEach((Function f) => f());
+  }
+  void addObserver(Function observer) {
+    _oberservers.add(observer);
+  }
+}
+
+//-------------------------
+
+
 class NewsApp extends StatefulWidget {
   @override
   _NewsAppState createState() => _NewsAppState();
 }
+Settings appSettings = Settings();
 
-bool usingDarkTheme = true;
 
 
 
 class _NewsAppState extends State<NewsApp> {
   ///light theme
-     handleSettingsChange() {
-       setState(() {
-         
-       });
+
+
+  @override
+  void initState() {
+    appSettings.addObserver((){
+      setState(() {
+        
+      });
+    });
+    // TODO: implement initState
+    super.initState();
   }
-
-
   @override
   Widget build(BuildContext context) {
     ///light theme
@@ -112,9 +133,9 @@ class _NewsAppState extends State<NewsApp> {
     List<ThemeData> appThemes =[lightTheme,darkTheme];
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: usingDarkTheme?appThemes[1]:appThemes[0],
+      theme: appSettings.isDark?appThemes[1]:appThemes[0],
       routes: {
-        '/': (context) => HomePage(settingsCallback: handleSettingsChange,),
+        '/': (context) => HomePage(),
                 'detailed_article': (context) => DetailedArticle(),
         //        'image': (context) => RegisterScreen(),
               },
