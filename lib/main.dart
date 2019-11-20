@@ -49,6 +49,7 @@ class _NewsAppState extends State<NewsApp> {
     ThemeData lightTheme = ThemeData(
       //primary color is being used as app bar color, so set it accordingly
       primaryColor: Colors.white,
+      accentColor: Colors.blueGrey[700],
 //    brightness: Brightness.light,
 //    primaryColorBrightness: Brightness.dark,
       tabBarTheme: TabBarTheme(
@@ -95,6 +96,7 @@ class _NewsAppState extends State<NewsApp> {
     );
     ///dark theme
     ThemeData darkTheme = ThemeData(
+      accentColor: Colors.blueGrey[700],
       brightness: Brightness.dark,
       primaryColorBrightness: Brightness.dark,
       tabBarTheme: TabBarTheme(

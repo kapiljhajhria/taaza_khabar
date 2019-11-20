@@ -43,38 +43,34 @@ class _HomePageState extends State<HomePage> {
       initialIndex: tabIndexOnLaunchOfApp,
       child: Scaffold(
         drawer: Container(
+          color: Theme.of(context).copyWith().accentColor,
           width: 200,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
 //          crossAxisAlignment: CrossAxisAlignment.start,
 //          mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Image.asset('assets/defaultimage.png'),
-              Container(
-                decoration:
-                BoxDecoration(border: Border.all(color: Colors.black26)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Text('Dark Theme'),
-                    Switch(
+              ListTile(
+                title: Text('Dark Theme',style: TextStyle(fontSize: 16)),
+                trailing:  Switch(
 
-                      value: widget.appSettings.isDark,
-                      onChanged: (toggleValue) {
+                    value: widget.appSettings.isDark,
+                    onChanged: (toggleValue) {
 
-                        // print('toggle value: $toggleValue usingDarkTheme : $usingDarkTheme');
+                      // print('toggle value: $toggleValue usingDarkTheme : $usingDarkTheme');
 //                      usingDarkTheme = !usingDarkTheme;
-                        setState(() {
-                          widget.appSettings.setIsDark(toggleValue);
-                
-                        });
-                      },
-                    ),
-                  ],
+                      setState(() {
+                        widget.appSettings.setIsDark(toggleValue);
+              
+                      });
+                    },
+                  ),
                 ),
-              ),
-              Text('Settings',style: TextStyle(fontSize: 22),),
-              Text('Credits',style: TextStyle(fontSize: 22),)
+                 
+              ListTile(title: Text('Settings',style: TextStyle(fontSize: 16),)),
+              ListTile(title: Text('Credits',style: TextStyle(fontSize: 16),)),
             ],
           ),
         ),
