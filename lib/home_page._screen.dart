@@ -5,8 +5,9 @@ import 'netwrok_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
+  Settings appSettings;
 
-
+  HomePage(this.appSettings);
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -58,13 +59,13 @@ class _HomePageState extends State<HomePage> {
                     Text('Dark Theme'),
                     Switch(
 
-                      value: appSettings.isDark,
+                      value: widget.appSettings.isDark,
                       onChanged: (toggleValue) {
 
                         // print('toggle value: $toggleValue usingDarkTheme : $usingDarkTheme');
 //                      usingDarkTheme = !usingDarkTheme;
                         setState(() {
-                          appSettings.setIsDark(toggleValue);
+                          widget.appSettings.setIsDark(toggleValue);
                 
                         });
                       },

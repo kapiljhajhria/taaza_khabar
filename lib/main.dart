@@ -25,14 +25,13 @@ class NewsApp extends StatefulWidget {
   @override
   _NewsAppState createState() => _NewsAppState();
 }
-Settings appSettings = Settings();
 
 
 
 
 class _NewsAppState extends State<NewsApp> {
-  ///light theme
 
+  Settings appSettings = Settings();
 
   @override
   void initState() {
@@ -135,7 +134,7 @@ class _NewsAppState extends State<NewsApp> {
       debugShowCheckedModeBanner: false,
       theme: appSettings.isDark?appThemes[1]:appThemes[0],
       routes: {
-        '/': (context) => HomePage(),
+        '/': (context) => HomePage(appSettings),
                 'detailed_article': (context) => DetailedArticle(),
         //        'image': (context) => RegisterScreen(),
               },
