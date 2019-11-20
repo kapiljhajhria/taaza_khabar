@@ -1,27 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:taaza_khabar/settings_class.dart';
 import 'home_page._screen.dart';
 import 'full_article.dart';
 
-void main() {
-  runApp(ChangeNotifierProvider(
-    builder: (context) => Settings(),
-    child: NewsApp()));
-}
+void main() => runApp(NewsApp());
 
 class NewsApp extends StatefulWidget {
   @override
   _NewsAppState createState() => _NewsAppState();
 }
 
+bool usingDarkTheme = true;
+
+
+
 class _NewsAppState extends State<NewsApp> {
   ///light theme
 
+
+
   @override
   Widget build(BuildContext context) {
-
     ///light theme
     ThemeData lightTheme = ThemeData(
       //primary color is being used as app bar color, so set it accordingly
@@ -35,15 +34,18 @@ class _NewsAppState extends State<NewsApp> {
           labelPadding: EdgeInsets.fromLTRB(10, 0, 10, 10)),
 
       textTheme: TextTheme(
+
         ///headline = main list headline
-        headline: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 20,
-          fontFamily: 'linlibertine_r',
+        headline: TextStyle(fontWeight: FontWeight.bold,
+            fontSize: 20,
+            fontFamily: 'linlibertine_r',
+
         ),
 
         ///subHead = main list description below headline
-        subhead: TextStyle(fontFamily: 'linlibertine_dr'),
+        subhead: TextStyle(
+            fontFamily: 'linlibertine_dr'),
+
 
         ///title =  detailed page  headline
         title: TextStyle(
@@ -64,8 +66,9 @@ class _NewsAppState extends State<NewsApp> {
 //      color: Colors.green
 //
 //    )
-    );
 
+
+    );
     ///dark theme
     ThemeData darkTheme = ThemeData(
       brightness: Brightness.dark,
@@ -75,15 +78,18 @@ class _NewsAppState extends State<NewsApp> {
           unselectedLabelStyle: TextStyle(fontSize: 19),
           labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           labelPadding: EdgeInsets.fromLTRB(10, 0, 10, 10)),
+
       textTheme: TextTheme(
         ///headline = main list headline
-        headline: TextStyle(
-            fontWeight: FontWeight.bold,
+        headline: TextStyle(fontWeight: FontWeight.bold,
             fontSize: 20,
-            fontFamily: 'linlibertine_r'),
+            fontFamily: 'linlibertine_r'
+        ),
 
         ///subHead = main list description below headline
-        subhead: TextStyle(fontFamily: 'linlibertine_dr'),
+        subhead: TextStyle(
+            fontFamily: 'linlibertine_dr'),
+
 
         ///title =  detailed page  headline
         title: TextStyle(
@@ -97,19 +103,17 @@ class _NewsAppState extends State<NewsApp> {
         ///body1 = detailed widget/page content
         body1: TextStyle(fontSize: 14.0),
       ),
+
     );
-    List<ThemeData> appThemes = [lightTheme, darkTheme];
-    return Consumer<Settings>(
-      builder: (context,data,child){
-      return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: data.darkModeStatus?appThemes[1]:appThemes[0],
-        routes: {
-          '/': (context) => HomePage(),
-          'detailed_article': (context) => DetailedArticle(),
+    List<ThemeData> appThemes =[lightTheme,darkTheme];
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: usingDarkTheme?appThemes[1]:appThemes[0],
+      routes: {
+        '/': (context) => HomePage(),
+        'detailed_article': (context) => DetailedArticle(),
 //        'image': (context) => RegisterScreen(),
-        },
-      );},
+      },
     );
   }
 }

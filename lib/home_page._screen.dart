@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:taaza_khabar/settings_class.dart';
 import 'homePage_newsListWidget.dart';
+import 'main.dart';
 import 'netwrok_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -40,52 +40,44 @@ class _HomePageState extends State<HomePage> {
       length: 5,
       initialIndex: tabIndexOnLaunchOfApp,
       child: Scaffold(
-          drawer: Consumer<Settings>(
-            builder: (context, data2, child) {
-              return Container(
-                width: 200,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+        drawer: Container(
+          width: 200,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
 //          crossAxisAlignment: CrossAxisAlignment.start,
 //          mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Image.asset('assets/defaultimage.png'),
+              Container(
+                decoration:
+                BoxDecoration(border: Border.all(color: Colors.black26)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    Image.asset('assets/defaultimage.png'),
-                    Container(
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black26)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Text('Dark Theme'),
-                          Switch(
-                            value: data2.darkModeStatus,
-                            onChanged: (toggleValue) {
-                              print(
-                                  'value of data2 darkmode is ${data2.darkModeStatus}');
-                              // print('toggle value: $toggleValue usingDarkTheme : $usingDarkTheme');
+                    Text('Dark Theme'),
+                    Switch(
+
+                      value: usingDarkTheme,
+                      onChanged: (toggleValue) {
+
+                        print('toggle value: $toggleValue usingDarkTheme : $usingDarkTheme');
 //                      usingDarkTheme = !usingDarkTheme;
-                              setState(() {
-                                data2.setDarkMode(toggleValue);
-                              });
-                            },
-                          ),
-                        ],
-                      ),
+                        setState(() {
+                          usingDarkTheme = toggleValue;
+
+                        });
+                      },
                     ),
-                    Text(
-                      'Settings',
-                      style: TextStyle(fontSize: 22),
-                    ),
-                    Text(
-                      'Credits',
-                      style: TextStyle(fontSize: 22),
-                    )
                   ],
                 ),
-              );
-            },
+              ),
+              Text('Settings',style: TextStyle(fontSize: 22),),
+              Text('Credits',style: TextStyle(fontSize: 22),)
+            ],
           ),
+        ),
           appBar: AppBar(
+            
             backgroundColor: Theme.of(context).copyWith().primaryColor,
             actions: <Widget>[
               IconButton(
