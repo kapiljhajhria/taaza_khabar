@@ -4,9 +4,10 @@ import 'package:taaza_khabar/article_class.dart';
 import 'article_class.dart';
 
 class NewsJsonUrl {
-  String myNewsApiKey = "";
+  String myNewsApiKey = "cbd79dfc4ee4413496a4aca82d4b02ec";
 
   String topHeadlinesOfCountry({String countryCode}) {
+    print('https://newsapi.org/v2/top-headlines?country=$countryCode&apiKey=$myNewsApiKey');
     return 'https://newsapi.org/v2/top-headlines?country=$countryCode&apiKey=$myNewsApiKey';
   }
 
@@ -39,11 +40,11 @@ void main() async {
   Map<String, dynamic> jsonData = await NewsJsonUrl()
       .getMapFromJson(NewsJsonUrl().searchForNews(searchTerm: 'donald trump'));
   FullMap fullMapFromJsonData = FullMap(jsonData);
-  print(fullMapFromJsonData.status);
-  print(fullMapFromJsonData.results);
+  // print(fullMapFromJsonData.status);
+  // print(fullMapFromJsonData.results);
   ArticlesList newsMap = ArticlesList(fullMapFromJsonData.articlesListOfMap);
-  print(newsMap.allArticles[2].title);
-  print(newsMap.allArticles[2].author);
-  print(newsMap.allArticles.length);
-  print(newsMap.allArticles[2].humanReadableTime);
+  // print(newsMap.allArticles[2].title);
+  // print(newsMap.allArticles[2].author);
+  // print(newsMap.allArticles.length);
+  // print(newsMap.allArticles[2].humanReadableTime);
 }
